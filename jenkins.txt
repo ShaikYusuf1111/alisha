@@ -1,0 +1,237 @@
+JENKINS
+
+interview questions:
+
+1. What is Jenkins?
+A) jenkins is a automation tool and also it is called as a continues intergration and continues deployment tool. we are using this jenkins to autommate the deployment.
+
+2. Tell me something about Continuous Integration, Continuous Delivery, and Continuous Deployment?
+A) Continuous Integration: A software development process where the changes made to software are integrated into the main code as and when a patch is ready so that the software will be always ready to be - built, tested, deployed, monitored - continuously.
+   Continuous Delivery: This is a Software Development Process where the continuously integrated (CI) changes will be tested & deployed continuously into a specific environment, generally through a manual release process, after all the quality checks are successful
+   Continuous Deployment: A Software Development practice where the continuously integrated (CI) changes are deployed automatically into the target environment after all the quality checks are successful
+   
+3. What are the common use cases Jenkins is used for?
+A) Software build jobs
+   Sanity/Smoke/CI/Regression test jobs
+   Web/Data Scraping related jobs
+   Code coverage measurement jobs
+   General-purpose automation
+   Reverse Engineering jobs
+   Key Decoding jobs & many other jobs where software automation will be applicable.
+  
+4. What are the ways to install Jenkins?
+A) LINUX,DOCKER,KUNERNETES
+
+5. What is a Jenkins job?
+A) A Job/Project is the fundamental unit of a logical work (like a software build, an automation task, test execution, etc) using the Jenkins automation server and other required plugins, configurations & infrastructures.
+
+Jobs can be of different types like - a freestyle project, a multi-configuration project, a pipeline project, a multi-branch project, etc.
+
+6. What are the types of Jenkins pipelines?
+A) PIPLE LINE, DECLARATIVE PIPE LINE
+
+7.How do you store credentials in Jenkins securely?
+A) Credentials can be stored securely in Jenkins using the Credentials plugin, which stores different types of credentials like - Username with a password, SSH username with the private key, AWS Credentials, Jenkins Build Token, Secret File/Text, X509 & other certificates, Vault related credentials securely with proper encryption & decryption as and when required
+
+8. What is a CI/CD pipeline?
+A) CI/CD Pipeline or Continuous Integration/ Continuous Delivery is considered the DevOps approach's backbone. The pipeline is responsible for building codes, running tests, and deploying new software versions.
+
+9) Name the three different types of pipelines in Jenkins?
+A) CI/CD pipeline 
+   Scripted pipeline
+   Declarative pipeline
+  
+10.  How can you set up a Jenkins job?
+A) Select New item from the menu
+   Next, enter a name for the job and select a free-style job
+   Click on OK to create a new job
+   Hence, the next page that appears will allow you to configure your job.
+   
+11.What are the requirements for using Jenkins?
+A) A source code repository that can be accessed, for example, a Git repository.
+   A build script, for example, a Maven script.
+   
+12. Name the two components that Jenkins is mostly integrated with?
+A) Version Control systems like Git and SVN (Apache Subversion)
+   Build tools like Maven 
+   
+13) Name some of the useful plugins in Jenkins?
+A) Maven 2 project
+   Amazon EC2
+   Copy artifact
+   Join
+   HTML publisher
+   Green Balls
+   
+14.Explain the process in which Jenkins works?
+A) Jenkins checks changes in repositories regularly, and developers must secure their code regularly. 
+   Once the changes are defined, Jenkins detects them and uses them to prepare a new build.
+   After that, Jenkins will transverse through various stages in its usual pipeline. As one stage completes, the process will move further on to the next stage.
+   If a stage fails, the Jenkins build will stop there, and the software will email the team using it. When completed successfully, the code implements itself in the proper server so that testing begins.
+   After the successful testing phase, Jenkins shares the results with the team using it.
+   
+15. What is Jenkinsfile? 
+A) Jenkins file is a text file that has a definition of a Jenkins pipeline and is checked into the source control repository. It enables code review and iteration on the pipeline. It also permits an audit trail for the pipeline
+
+16. What is the process to integrate Git with Jenkins?
+A) First, create a new Jenkins job and open the Jenkins dashboard.
+   Now, enter the desired project name and select the job type. 
+   Click on OK.
+   Then enter the project information. 
+   After that, visit the 'Source Code Management' tab. 
+   
+17. How to add nodes?
+18. how to pass shell script in jobs?
+19. why we are using shell script in jenkins?
+20. what is poll scm?
+21. art what  path our config filw will store in jenkins?
+22. jenkins is secure? and why?
+23. what is jenkins file?
+24. in your project how you are using jenkins?
+25. mention some plugins you are used for project?
+
+
+sample pipeline scripts:
+
+PUSHING DOCKER IMAGE INTO DOCKER HUB USING PIPE LINE SCRIPTS:
+
+  pipeline 
+
+
+node {
+    stage ("Gitclone") {
+        git branch: 'main', credentialsId: 'f2138ffc-6262-4087-abd4-72fbcc1ec9b5', url: 'https://gitlab.com/vishnuvardhan997/jenkins_docker.git'
+    }
+    
+    stage ("Build docker image"){
+        sh " docker build -t tomcat . "
+    }
+    
+    stage ("Run docker image") {
+        sh "docker run -d -p 8080:8080 --name tomcatcon1122 tomcat"
+    }
+    
+    stage ("docker login") {
+    withCredentials([string(credentialsId: '3d6f91e7-c5ec-40e7-a974-7772e0aaabad', variable: 'Docker_passwd')]) {
+    // some block
+    sh "docker login -u dockerrepository123 -p ${Docker_passwd}"
+}
+}
+
+    stage ("Dockertag") {
+        sh "docker tag tomcat dockerrepository123/name:latest "
+    }
+    
+    stage ("Dockerpush") {
+        sh "docker push dockerrepository123/name:latest"
+    }
+}
+
+
+INSTALLING DOCKER AND RUNNING DOCKER IMAGE USING PIPE LINE:
+
+  pipeline 
+
+
+node {
+    stage ("Gitclone") {
+        git branch: 'main', credentialsId: 'f2138ffc-6262-4087-abd4-72fbcc1ec9b5', url: 'https://gitlab.com/vishnuvardhan997/jenkins_docker.git'
+    }
+    
+    stage ("Build docker image"){
+        sh " docker build -t tomcat . "
+    }
+    
+    stage ("Run docker image") {
+        sh "docker run -d -p 8080:8080 --name tomcatcon1122 tomcat"
+    }
+    
+    stage ("docker login") {
+    withCredentials([string(credentialsId: '3d6f91e7-c5ec-40e7-a974-7772e0aaabad', variable: 'Docker_passwd')]) {
+    // some block
+    sh "docker login -u dockerrepository123 -p ${Docker_passwd}"
+}
+}
+
+    stage ("Dockertag") {
+        sh "docker tag tomcat dockerrepository123/name:latest "
+    }
+    
+    stage ("Dockerpush") {
+        sh "docker push dockerrepository123/name:latest"
+    }
+}
+
+
+PASSING INCLUDES AND EXCLUDES USING PIPE LINE SCRIPT:
+
+pipeline { 
+    agent any
+    stages {     
+        stage ("Git Checkout"){ 
+            steps {
+            script {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "master"]],
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [[
+                            $class: 'PathRestriction', excludedRegions: '', includedRegions: 'devops',
+                            relativeTargetDir: "/tmp/jenkins/devops"
+                        ]],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [[
+                            credentialsId: 'a95cee46-1fb9-435a-9397-a5aed979e5ba',
+                            url: 'https://github.com/rajeshpalle123/dt.git'
+                        ]]
+                    ])
+                
+                }
+            }
+        } 
+    }
+}
+
+BUILDING DOCKER IMAGE USING PIPELINE SCRIPT:
+
+
+node {
+  
+    stage ("git") {
+        
+    git branch: 'main', credentialsId: 'd3991f5c-9c29-4e40-9eb7-17d40ce7f8bc', url: 'https://gitlab.com/vishnuvardhan997/jenkin-docker.git'
+}
+     
+     stage ("Build docker image"){
+         sh "sudo apt-get update"
+         sh "sudo apt install docker.io -y"
+        sh "sudo docker build -t apache . "
+        sh " sudo docker run -d -p 80:80  apache "
+    }
+}
+
+RUNNING UNIT TEST CASES USING JENKINS PIPELINE SCRIPT:
+pipeline {
+      agent any
+      
+      stages {
+          stage('build') {
+              steps {
+                  git 'https://github.com/rajeshpalle123/java-rest-api-calculator.git'
+                  sh './mvnw clean compile'
+              }
+          }  
+          stage('test') {
+              steps {
+                  sh './mvnw test'
+              }
+              
+              post {
+                  always {
+                      junit "**/target/surefire-reports/TEST-*.xml"
+                  }
+              }
+          }
+      }
+}
+
