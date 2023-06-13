@@ -1,0 +1,18 @@
+IAM-By using IAM we can give access to people which resource they need we have to add and we have to share credentails to them
+S3-By using 3 bucket we can store large amount of data in s3 bucket when ever we need we can retrive the data at any time
+AMI-By using AMI we can take backup of hole server.
+EC2-By using EC2 we can create our servers  and we can stop our servers.
+VPC-By using VPC we can provide secured network to our ec2 servers
+elastic ip-By using elastice ip we can provide standered ip address for long time
+natgateway-if we added natgateway with subnets means- we call as private subnets
+internetgateway-if we added internetgateway with subnets means-we called as public subnets
+subnets-it will establish communication between internet to our ec2 server
+ELB-By using ELB we can balance the load between servers
+three types load balancers-1)Application lb,2)Network lb,3)gateway lb
+EBS-By using this can we can increase the storge.
+snapshots-By using snapshots we can take backup of perticular volumes or multiple volums
+sns-By using this we can get notify the server status
+route53-By using route53 we can obtain domains like .org,.info,.io,.com
+cloud watch-By using this we can monitior our memory utilization and network utilization,ec2 servers,securitys groups
+clous trail- by using this we can monitor aws account activity
+
